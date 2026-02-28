@@ -22,19 +22,19 @@ This initial constraint set is denoted as:
 
 R_base
 
-R_base represents the core behavioral constraints of the process in declarative form.
+R_base represents the core behavioral constraints of the imperative process model in declarative form.
 
 ---
 
 ### 2.2 Relaxation of the Base Rule Set
 
-To allow flexibility and incremental evolution, the base rule set may be relaxed to remove overly restrictive behavior.
+To allow additional behavioural constraints _base has to be relaxed wrt to New Rules
 
 The relaxed constraint set is denoted as:
 
 R_existing
 
-R_existing is derived from R_base by controlled weakening or removal of selected constraints.
+R_existing is derived from R_base by performing constraint relaxation wrt to new rules.
 
 ---
 
@@ -46,9 +46,8 @@ R_new
 
 Rather than merging all rules at once, the system performs incremental injection. Let:
 
-R_new^inc ⊆ R_new
+R_new^inc
 
-be the subset of new rules injected at a given step.
 
 ---
 
@@ -60,12 +59,12 @@ R_trial = R_existing ∪ R_new^inc
 
 Where:
 
-- R_existing = relaxed base constraint set
+- R_existing = relaxed base constraint set wrt to new rules
 - R_new^inc = incrementally injected new constraints
 - ∪ = set union operator
-- R_trial = temporary rule set used for validation
+- R_trial = temporary rule set used for consistency checking 
 
-This union is not unconditional. It is performed under consistency verification.
+
 
 ---
 
@@ -78,7 +77,6 @@ R_trial = R_existing ∪ R_new^inc
 a consistency check is performed in the MP-Declare tool.
 
 The rule set R_trial is exported as a `.decl` file and validated under the configured parameters.  
-Consistency is operationally verified through trace generation using MP-Declare and the Alloy Log Generator.
 
 If valid traces are successfully generated, the rule set is considered consistent.
 
@@ -86,9 +84,6 @@ If R_trial generates 0 traces, inconsistency is detected, indicating that the co
 
 Formally:
 
-R_trial is consistent if there exists at least one valid trace σ such that σ satisfies all constraints in R_trial.
-
-If no such trace exists, the injected rules are making contradictions with the R_existing 
 
 ### 2.6 Final DECLARE Specification
 
@@ -204,13 +199,8 @@ The script executes the complete declarative-to-procedural pipeline.
 
 This prototype contributes to research in:
 
-- Incremental declarative constraint evolution
-- Controlled rule injection
-- Constraint relaxation
-- Declarative-to-procedural transformation
-- Process discovery under evolving rule sets
-- Empirical evaluation of behavioral change
-
+- Incremental process discovery using declarative constraints
+- consistency checking
 The formal construction of the trial rule set:
 
 R_trial = R_existing ∪ R_new^inc
