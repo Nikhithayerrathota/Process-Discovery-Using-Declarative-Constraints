@@ -22,7 +22,7 @@ The research aims to develop an automated, incremental process discovery–based
 **R_trial = R_existing ∪ R_new^inc**
 
 The rule set is validated through MP-Declare:  
-- If traces can be generated, the model is **consistent** and exported as `model.decl` and generates traces, Process discovery inductive miner is applied on generated event log as a result a Constraint based Workflow net is generated, where as incase of inconsistent R_trail results in 0 trace generation which requirs inconsistent resolution techniques qmis is needed as a result qmis based Rediscovered workflow net is generated.
+- If traces can be generated, the model is **consistent** and exported as `model.decl` and generates traces, Process discovery inductive miner is applied on generated event log as a result a Constraint based Workflow net is generated, where as incase of inconsistent R_trail results in 0 trace generation which requirs inconsistent resolution techniques qmis is applied as a result qmis based Rediscovered workflow net is generated.
 
 ---
 
