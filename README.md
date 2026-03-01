@@ -1,6 +1,6 @@
 # Incremental Process Discovery Using Declarative Constraints
 
-Prototype developed for a Master’s Thesis.
+**Prototype developed for a Master’s Thesis**
 
 This project investigates how the **incremental evolution of declarative constraints** influences procedural process discovery. The implementation is developed in Python using **PM4Py** and integrates the **Multi-Perspective Declare Log Generator** for event log generation from DECLARE specifications.
 
@@ -10,7 +10,7 @@ This project investigates how the **incremental evolution of declarative constra
 
 The research studies how controlled modifications of declarative constraint sets affect the resulting procedural models discovered from generated event logs.
 
-The focus lies on the formal incremental construction of declarative rule sets and their validation prior to event log synthesis.
+The focus lies on the **formal incremental construction** of declarative rule sets and their validation prior to event log synthesis.
 
 ---
 
@@ -26,14 +26,12 @@ Let:
 
 The incremental trial rule set is formally defined as:
 
-
-R_trial = R_existing ∪ R_new^inc
-
+**R_trial = R_existing ∪ R_new^inc**
 
 The rule set is validated using MP-Declare:
 
-- If traces can be generated → the model is **consistent**
-- The validated specification is exported as `model.decl`
+- If traces can be generated → the model is **consistent**.
+- The validated specification is exported as `model.decl`.
 
 ---
 
@@ -41,31 +39,13 @@ The rule set is validated using MP-Declare:
 
 The complete workflow is:
 
-
-BPMN
-↓
-WF-net
-↓
-DECLARE extraction
-↓
-Constraint relaxation
-↓
-Incremental rule injection
-↓
-Consistency check (MP-Declare)
-↓
-Event log generation (Alloy)
-↓
-Inductive Miner (PM4Py)
-↓
-Discovered WF-net
-
+- **BPMN → WF-net → DECLARE extraction → Constraint relaxation → Incremental rule injection → Consistency check (MP-Declare) → Event log generation (Alloy) → Inductive Miner (PM4Py) → Discovered WF-net**
 
 ---
 
 ## 4. Generated Artifacts
 
-The system produces:
+The system produces the following artifacts:
 
 - `model_from_bpmn.pnml` → WF-net derived from BPMN  
 - `generated_log.xes` → Event log generated from DECLARE model  
@@ -82,7 +62,7 @@ The system produces:
 - Java  
 - Multi-Perspective Declare Log Generator  
 
-Install PM4Py:
+To install PM4Py, run:
 
 ```bash
 pip install pm4py
@@ -109,9 +89,9 @@ This algorithm is used in the DECLARE specification extraction phase.
 
 6. Execution
 
-Configure tool paths inside main.py
+Configure tool paths inside main.py.
 
-Run:
+Run the following command:
 
 python main.py
 7. Research Contribution
