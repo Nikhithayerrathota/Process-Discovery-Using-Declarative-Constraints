@@ -2,7 +2,7 @@
 
 **Prototype for Master's Thesis**
 
-This project explores how incremental changes in declarative constraints affect process discovery. Developed in Python with **PM4Py**, it integrates the **Multi-Perspective Declare Log Generator** to create event logs from DECLARE specifications.
+This project explores how to perform incremental process discovery using declarative constraints, i.e updating any BPMN with the additional behaviour imposed on the process model by using DECLARE constraints.
 
 ---
 
