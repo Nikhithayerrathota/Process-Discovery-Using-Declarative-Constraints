@@ -47,9 +47,9 @@ The rule set is validated through MP-Declare:
 - **Java**  
 - **Multi-Perspective Declare Log Generator**
 
-To install PM4Py, run:
+  To install PM4Py, run:
 
-```bash
+
 pip install pm4py
 Execution
 
@@ -58,7 +58,7 @@ Set the tool paths inside main.py
 Run the following command:
 
 python main.py
-**
+
 ## Research Contribution**
 
 A formal approach to incremental declarative rule evolution
