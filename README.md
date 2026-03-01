@@ -34,9 +34,9 @@ The rule set is validated through MP-Declare:
 
 ## Output Artifacts
 
-- **`model_from_bpmn.pnml`**: A **WF-net** derived from the BPMN model. This represents the initial workflow structure before any constraints are applied.  
-- **`generated_log.xes`**: An **event log** generated from the DECLARE model, simulating process execution based on the declarative rules.  
-- **`discovered_model.pnml`**: The **discovered process model** created using the **Inductive Miner** algorithm from the generated event log, representing the inferred workflow structure.
+- **model_from_bpmn.pnml**: A **WF-net** derived from the BPMN model. This represents the initial workflow structure before any constraints are applied.  
+- **generated_log.xes**: An **event log** generated from the DECLARE model, simulating process execution based on the declarative rules.  
+- **discovered_model.pnml**: The **discovered process model** created using the **Inductive Miner** algorithm from the generated event log, representing the inferred workflow structure.
 
 ---
 
