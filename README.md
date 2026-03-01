@@ -58,7 +58,8 @@ Set the tool paths inside main.py
 Run the following command:
 
 python main.py
-Research Contribution
+**
+## Research Contribution**
 
 A formal approach to incremental declarative rule evolution
 
