@@ -22,7 +22,7 @@ DISCOVERED_MODEL = r"C:\Users\I543203\Desktop\base\ProcessTreesImplementation - 
 
 
 # =========================================================
-# BPMN → WF-net (DISPLAY + SAVE)
+# BPMN → WF-net
 # =========================================================
 
 def bpmn_to_pnml():
@@ -39,7 +39,7 @@ def bpmn_to_pnml():
 
 
 # =========================================================
-# DECLARE → XES (Alloy GUI Settings)
+# DECLARE → Trace Generation (Alloy GUI Settings)
 # =========================================================
 
 def declare_to_log():
@@ -123,7 +123,7 @@ def display_log():
 
 
 # =========================================================
-# INDUCTIVE MINER → WF-net (DISPLAY + SAVE)
+# INDUCTIVE MINER → WF-net
 # =========================================================
 
 def log_to_wfnet():
