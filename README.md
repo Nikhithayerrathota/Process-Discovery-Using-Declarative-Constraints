@@ -57,6 +57,14 @@ Tool download: https://tinyurl.com/y9uqnfok
 
 Demo video: https://youtu.be/e4q_ThtY70E
 
+## Usage of Wizard Algorithm
+
+The wizard algorithm is adopted from the work of Barbaro et al. (2022) in *From Sound Workflow Nets to LTLf Declarative Specifications by Casting Three Spells*. This algorithm is used in [Extract DECLARE specification].
+
+**Citation**:
+Barbaro, L., Varricchione, G., Montalti, M., & Di Ciccio, C. (2022). *From Sound Workflow Nets to LTLf Declarative Specifications by Casting Three Spells*.
+
+
 Install dependency:
 
 pip install pm4py
