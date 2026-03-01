@@ -28,7 +28,7 @@ The rule set is validated through MP-Declare:
 
 ## Workflow
 
-1. **BPMN → WF-net → DECLARE extraction(Wizard Algorithm) → Relaxation → Incremental injection → Consistency check (MP-Declare) → Event log (Alloy) → Inductive Miner (PM4Py) → Rediscovered WF-net**
+1. **BPMN → Workflow Net → DECLARE extraction(Wizard Algorithm) → Relaxation → Incremental injection → Consistency check (MP-Declare) → Event log (Alloy) → Inductive Miner (PM4Py) → Rediscovered WF-net**
 
 ---
 
