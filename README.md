@@ -62,8 +62,4 @@ python main.py
 
 ## Research Contribution
 
-A formal approach to incremental declarative rule evolution
-
-A controlled strategy for consistency validation
-
-An integrated pipeline linking declarative modeling, event log creation, and process discovery
+The research question aims to develop an automated, incremental process discovery–based method that integrates declarative constraints into existing imperative process models while ensuring compliance with additional behavioral requirements.
