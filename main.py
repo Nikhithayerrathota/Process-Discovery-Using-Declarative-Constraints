@@ -156,7 +156,7 @@ def main():
     display_log()
     log_to_wfnet()
 
-    print("\n🎉 PIPELINE COMPLETED SUCCESSFULLY")
+    print("\n PIPELINE COMPLETED SUCCESSFULLY")
 
 
 if __name__ == "__main__":
