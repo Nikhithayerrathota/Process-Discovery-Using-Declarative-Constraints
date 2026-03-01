@@ -1,111 +1,66 @@
-# Incremental Process Discovery Using Declarative Constraints
+Incremental Process Discovery Using Declarative Constraints
 
-**Prototype developed for a Master’s Thesis**
+Prototype for Master's Thesis
 
-This project investigates how the **incremental evolution of declarative constraints** influences procedural process discovery. The implementation is developed in Python using **PM4Py** and integrates the **Multi-Perspective Declare Log Generator** for event log generation from DECLARE specifications.
+This project explores how incremental changes in declarative constraints affect process discovery. Developed in Python with PM4Py, it integrates the Multi-Perspective Declare Log Generator to create event logs from DECLARE specifications.
 
----
+Research Goal
 
-## 1. Research Objective
+The goal is to study how controlled changes in declarative constraints impact the process models discovered from event logs. The focus is on incrementally building and validating rule sets before log generation.
 
-The research studies how controlled modifications of declarative constraint sets affect the resulting procedural models discovered from generated event logs.
+Approach
 
-The focus lies on the **formal incremental construction** of declarative rule sets and their validation prior to event log synthesis.
+R_base: Initial DECLARE specification from a sound WF-net
 
----
+R_existing: Relaxed base constraints
 
-## 2. Conceptual Framework
+R_new^inc: Incremental constraints added
 
-Let:
+Trial Rule Set:
+R_trial = R_existing ∪ R_new^inc
 
-- **R_base** → Initial DECLARE specification extracted from a sound WF-net  
-- **R_existing** → Relaxed version of the base constraints  
-- **R_new^inc** → Incrementally injected constraints  
+The rule set is validated through MP-Declare:
 
-### Trial Rule Construction
+If traces can be generated, the model is consistent and exported as model.decl.
 
-The incremental trial rule set is formally defined as:
+Workflow
 
-**R_trial = R_existing ∪ R_new^inc**
+BPMN → WF-net → DECLARE extraction → Relaxation → Incremental injection → Consistency check (MP-Declare) → Event log (Alloy) → Inductive Miner (PM4Py) → Discovered WF-net
 
-The rule set is validated using MP-Declare:
+Output Artifacts
 
-- If traces can be generated → the model is **consistent**.
-- The validated specification is exported as `model.decl`.
+model_from_bpmn.pnml: A WF-net derived from the BPMN model. This represents the initial workflow structure before any constraints are applied.
 
----
+generated_log.xes: An event log generated from the DECLARE model, simulating process execution based on the declarative rules.
 
-## 3. Processing Pipeline
+discovered_model.pnml: The discovered process model created using the Inductive Miner algorithm from the generated event log, representing the inferred workflow structure.
 
-The complete workflow is:
+Dependencies
 
-- **BPMN → WF-net → DECLARE extraction → Constraint relaxation → Incremental rule injection → Consistency check (MP-Declare) → Event log generation (Alloy) → Inductive Miner (PM4Py) → Discovered WF-net**
+Python 3.x
 
----
+PM4Py
 
-## 4. Generated Artifacts
+Java
 
-The system produces the following artifacts:
-
-- `model_from_bpmn.pnml` → WF-net derived from BPMN  
-- `generated_log.xes` → Event log generated from DECLARE model  
-- `discovered_model.pnml` → Process model discovered using Inductive Miner  
-
----
-
-## 5. External Tools and Dependencies
-
-### Core Requirements
-
-- Python 3.x  
-- PM4Py  
-- Java  
-- Multi-Perspective Declare Log Generator  
+Multi-Perspective Declare Log Generator
 
 To install PM4Py, run:
 
-```bash
 pip install pm4py
-Multi-Perspective Declare Log Generator
+Execution
 
-The project requires the tool described in:
-
-Skydanienko, V., Di Francescomarino, C., Ghidini, C., & Maggi, F. M.
-“A tool for generating event logs from multi-perspective Declare models,”
-BPM 2017 Demonstration Track, LNCS 10445, Springer, 2017.
-
-Tool: Multi-Perspective Declare Log Generator
-
-Demo video: Watch here
-
-Wizard Algorithm
-
-The DECLARE extraction step adopts the wizard algorithm proposed in:
-
-Barbaro, L., Varricchione, G., Montalti, M., & Di Ciccio, C. (2022).
-From Sound Workflow Nets to LTLf Declarative Specifications by Casting Three Spells.
-
-This algorithm is used in the DECLARE specification extraction phase.
-
-6. Execution
-
-Configure tool paths inside main.py.
+Set the tool paths inside main.py
 
 Run the following command:
 
 python main.py
-7. Research Contribution
+Research Contribution
 
-This work provides:
+A formal approach to incremental declarative rule evolution
 
-A formal construction of incremental declarative rule evolution
+A controlled strategy for consistency validation
 
-A controlled validation strategy for consistency checking
+An integrated pipeline linking declarative modeling, event log creation, and process discovery
 
-An integrated pipeline connecting declarative modeling, event log synthesis, and procedural discovery
-
-Empirical observation of how constraint relaxation and incremental injection influence discovered WF-nets
-
-The central formal contribution is the incremental trial construction:
-
-R_trial = R_existing ∪ R_new^inc
+Empirical insights into how constraint relaxation and incremental changes affect the discovered models
