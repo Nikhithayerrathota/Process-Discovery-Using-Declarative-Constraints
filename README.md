@@ -42,6 +42,20 @@ BPMN
 - Python 3.x
 - PM4Py
 - Java
+- Multi-Perspective Declare Log Generator tool
+  (Skydanienko et al., BPM 2017)
+
+  ## External Tool
+
+The project requires the tool described in:
+
+Skydanienko, V., Di Francescomarino, C., Ghidini, C., & Maggi, F. M.
+"A tool for generating event logs from multi-perspective Declare models,"
+BPM 2017 Demonstration Track, LNCS 10445, Springer, 2017.
+
+Tool download: https://tinyurl.com/y9uqnfok
+
+Demo video: https://youtu.be/e4q_ThtY70E
 
 Install dependency:
 
