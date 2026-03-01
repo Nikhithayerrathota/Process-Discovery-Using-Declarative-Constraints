@@ -8,27 +8,27 @@ This project explores how to perform incremental process discovery using declara
 
 ## Research Goal
 
-The goal is to study how controlled changes in declarative constraints impact the process models discovered from event logs. The focus is on incrementally building and validating rule sets before log generation.
+The research aims to develop an automated, incremental process discovery–based approach for integrating declarative constraints into existing imperative process models while ensuring behavioral compliance and consistency.
 
 ---
 
 ## Approach
 
-- **R_base**: Initial DECLARE specification from a sound WF-net  
-- **R_existing**: Relaxed base constraints  
-- **R_new^inc**: Incremental constraints added  
+- **R_base**: Extracted DECLARE specification from a sound WF-net using Wizard Algorithm
+- **R_existing**: Relaxed base constraints wrt to New rules
+- **R_new^inc**: Incremental addition of new constraints   
 
 ### Trial Rule Set:
 **R_trial = R_existing ∪ R_new^inc**
 
 The rule set is validated through MP-Declare:  
-- If traces can be generated, the model is **consistent** and exported as `model.decl`.
+- If traces can be generated, the model is **consistent** and exported as `model.decl` and generates traces, Process discovery inductive miner is applied on generated event log as a result a Constraint based Workflow net is generated, where as incase of inconsistent R_trail results in 0 trace generation which requirs inconsistent resolution techniques qmis is needed as a result qmis based Rediscovered workflow net is generated.
 
 ---
 
 ## Workflow
 
-1. **BPMN → WF-net → DECLARE extraction → Relaxation → Incremental injection → Consistency check (MP-Declare) → Event log (Alloy) → Inductive Miner (PM4Py) → Discovered WF-net**
+1. **BPMN → WF-net → DECLARE extraction(Wizard Algorithm) → Relaxation → Incremental injection → Consistency check (MP-Declare) → Event log (Alloy) → Inductive Miner (PM4Py) → Rediscovered WF-net**
 
 ---
 
@@ -46,6 +46,7 @@ The rule set is validated through MP-Declare:
 - **PM4Py**  
 - **Java**  
 - **Multi-Perspective Declare Log Generator**
+- **Wizard Algorithm**
 
   To install PM4Py, run:
 
