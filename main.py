@@ -32,7 +32,7 @@ def bpmn_to_pnml():
     net, im, fm = pm4py.convert_to_petri_net(bpmn)
 
     pm4py.write_pnml(net, im, fm, MODEL_FROM_BPMN)
-    print("✓ PNML created:", MODEL_FROM_BPMN)
+    print(" PNML created:", MODEL_FROM_BPMN)
 
     print("Displaying BPMN-converted PNML...")
     pm4py.view_petri_net(net, im, fm)
