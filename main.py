@@ -69,7 +69,7 @@ def declare_to_log():
         print(result.stderr)
         raise RuntimeError("Log generation failed")
 
-    print("✓ Log generated:", GENERATED_LOG)
+    print(" Log generated:", GENERATED_LOG)
 
 
 # =========================================================
@@ -98,7 +98,7 @@ def fix_xes():
 
     xes_exporter.apply(cleaned_log, GENERATED_LOG)
 
-    print("✓ Log fixed and exported")
+    print(" Log fixed and exported")
 
 
 # =========================================================
@@ -135,7 +135,7 @@ def log_to_wfnet():
     net, im, fm = pm4py.convert_to_petri_net(process_tree)
 
     pm4py.write_pnml(net, im, fm, DISCOVERED_MODEL)
-    print("✓ Discovered WF-net saved:", DISCOVERED_MODEL)
+    print(" Discovered WF-net saved:", DISCOVERED_MODEL)
 
     print("Displaying discovered PNML...")
     pm4py.view_petri_net(net, im, fm)
