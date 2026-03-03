@@ -10,14 +10,14 @@ from pm4py.algo.evaluation.generalization import algorithm as generalization_eva
 from pm4py.algo.evaluation.simplicity import algorithm as simplicity_evaluator
 
 # ---- paths ----
-base_dir = r"C:\Users\I543203\Desktop\Loop"
-download_dir = r"C:\Users\I543203\Desktop\Loop"
+base_dir = r"C:\Users\I543203\Downloads\Masters-Thesis-Experiement-Results-main\Masters-Thesis-Experiement-Results-main\BPMN5"
+download_dir = r"C:\Users\I543203\Downloads\Masters-Thesis-Experiement-Results-main\Masters-Thesis-Experiement-Results-main\BPMN5"
 
-bpmn_file = os.path.join(base_dir, "BPMN16.bpmn")
-decl_file = os.path.join(base_dir, "BPMN16.decl")
+bpmn_file = os.path.join(base_dir, "BPMN5.bpmn")
+decl_file = os.path.join(base_dir, "BPMN5.decl")
 alloy_jar = os.path.join(download_dir, "AlloyLogGenerator.jar")
 
-pnml_from_bpmn = os.path.join(base_dir, "BPMN16.pnml")
+pnml_from_bpmn = os.path.join(base_dir, "BPMN5.pnml")
 generated_log = os.path.join(base_dir, "generated_log.xes")
 discovered_pnml = os.path.join(base_dir, "discovered_model.pnml")
 
