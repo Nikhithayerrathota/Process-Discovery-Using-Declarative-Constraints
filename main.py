@@ -1,163 +1,114 @@
+import os
 import subprocess
 from datetime import datetime, timedelta
 import pm4py
-
 from pm4py.objects.log.importer.xes import importer as xes_importer
 from pm4py.objects.log.exporter.xes import exporter as xes_exporter
-from pm4py.objects.log.obj import EventLog
+from pm4py.algo.evaluation.replay_fitness import algorithm as fitness_evaluator
+from pm4py.algo.evaluation.precision import algorithm as precision_evaluator
+from pm4py.algo.evaluation.generalization import algorithm as generalization_evaluator
+from pm4py.algo.evaluation.simplicity import algorithm as simplicity_evaluator
+
+# ---- paths ----
+base_dir = r"C:\Users\I543203\Desktop\Loop"
+download_dir = r"C:\Users\I543203\Desktop\Loop"
+
+bpmn_file = os.path.join(base_dir, "BPMN16.bpmn")
+decl_file = os.path.join(base_dir, "BPMN16.decl")
+alloy_jar = os.path.join(download_dir, "AlloyLogGenerator.jar")
+
+pnml_from_bpmn = os.path.join(base_dir, "BPMN16.pnml")
+generated_log = os.path.join(base_dir, "generated_log.xes")
+discovered_pnml = os.path.join(base_dir, "discovered_model.pnml")
 
 
-# =========================================================
-# FILE PATHS
-# =========================================================
-
-BPMN_FILE = r"C:\Users\I543203\Desktop\base\ProcessTreesImplementation - Copy\BPMN4\BPMN4.bpmn"
-DECL_FILE = r"C:\Users\I543203\Desktop\base\ProcessTreesImplementation - Copy\BPMN4\bpmn4.1.decl"
-
-ALLOY_JAR = r"C:\Users\I543203\Downloads\gen (2)\AlloyLogGenerator.jar"
-
-MODEL_FROM_BPMN = r"C:\Users\I543203\Desktop\base\ProcessTreesImplementation - Copy\BPMN4\model_from_bpmn.pnml"
-GENERATED_LOG = r"C:\Users\I543203\Desktop\base\ProcessTreesImplementation - Copy\BPMN4\generated_log.xes"
-DISCOVERED_MODEL = r"C:\Users\I543203\Desktop\base\ProcessTreesImplementation - Copy\BPMN4\discovered_model.pnml"
+# 1) BPMN → Petri Net
+print("\nConverting BPMN to Petri net...")
+bpmn = pm4py.read_bpmn(bpmn_file)
+net, im, fm = pm4py.convert_to_petri_net(bpmn)
+pm4py.write_pnml(net, im, fm, pnml_from_bpmn)
+pm4py.view_petri_net(net, im, fm)
 
 
-# =========================================================
-# BPMN → WF-net
-# =========================================================
+# 2) DECLARE → Log (Alloy)
+print("\nGenerating event log from DECLARE...")
+cmd = [
+    "java", "-jar", alloy_jar,
+    "1", "50", "20",
+    decl_file, generated_log,
+    "-vacuity",
+    "-shuffle", "1",
+    "-is", "1",
+    "-msi", "1"
+]
 
-def bpmn_to_pnml():
-    print("\n[1] BPMN → WF-net")
-
-    bpmn = pm4py.read_bpmn(BPMN_FILE)
-    net, im, fm = pm4py.convert_to_petri_net(bpmn)
-
-    pm4py.write_pnml(net, im, fm, MODEL_FROM_BPMN)
-    print(" PNML created:", MODEL_FROM_BPMN)
-
-    print("Displaying BPMN-converted PNML...")
-    pm4py.view_petri_net(net, im, fm)
-
-
-# =========================================================
-# DECLARE → Trace Generation (Alloy GUI Settings)
-# =========================================================
-
-def declare_to_log():
-    print("\n[2] DECLARE → XES Log")
-
-    cmd = [
-        "java",
-        "-jar",
-        ALLOY_JAR,
-        "1",          # Min trace length
-        "50",         # Max trace length
-        "20",         # Number of traces
-        DECL_FILE,
-        GENERATED_LOG,
-        "-vacuity",
-        "-shuffle", "1",
-        "-is", "1",
-        "-msi", "1"
-    ]
-
-    print("Running command:")
-    print(" ".join(cmd))
-
-    result = subprocess.run(cmd, capture_output=True, text=True)
-
-    if result.returncode != 0:
-        print(result.stderr)
-        raise RuntimeError("Log generation failed")
-
-    print(" Log generated:", GENERATED_LOG)
+result = subprocess.run(cmd, capture_output=True, text=True)
+if result.returncode != 0:
+    print(result.stderr)
+    raise RuntimeError("Log generation failed")
 
 
-# =========================================================
-#  FIX LOG (ADD TIMESTAMPS)
-# =========================================================
+# 3) Add timestamps (Inductive Miner needs them)
+print("\nAdding timestamps...")
+log = xes_importer.apply(generated_log)
+start_time = datetime.now()
 
-def fix_xes():
-    print("\n[3] Fixing XES (adding timestamps)")
+for t_index, trace in enumerate(log):
+    for e_index, event in enumerate(trace):
+        event["time:timestamp"] = start_time + timedelta(
+            seconds=t_index * 100 + e_index
+        )
 
-    log = xes_importer.apply(GENERATED_LOG)
-
-    base_time = datetime.now()
-    cleaned_log = EventLog()
-
-    for t_index, trace in enumerate(log):
-
-        if len(trace) == 0:
-            continue
-
-        for e_index, event in enumerate(trace):
-            event["time:timestamp"] = base_time + timedelta(
-                seconds=t_index * 100 + e_index
-            )
-
-        cleaned_log.append(trace)
-
-    xes_exporter.apply(cleaned_log, GENERATED_LOG)
-
-    print(" Log fixed and exported")
+xes_exporter.apply(log, generated_log)
 
 
-# =========================================================
-# DISPLAY ALL 20 TRACES
-# =========================================================
+# 4) Show traces
+print("\nLog summary:")
+print("Traces:", len(log))
+print("Events:", sum(len(t) for t in log))
 
-def display_log():
-    print("\n[4] Displaying Log")
-
-    log = xes_importer.apply(GENERATED_LOG)
-
-    print("Number of traces:", len(log))
-    print("Number of events:", sum(len(trace) for trace in log))
-
-    print("\nAll traces:\n")
-
-    for i, trace in enumerate(log):
-        activities = [event.get("concept:name", "?") for event in trace]
-        print(f"Trace {i+1} ({len(trace)} events):")
-        print(activities)
-        print("-" * 80)
+for i, trace in enumerate(log):
+    acts = [e.get("concept:name", "?") for e in trace]
+    print(f"Trace {i+1}: {acts}")
 
 
-# =========================================================
-# INDUCTIVE MINER → WF-net
-# =========================================================
+# 5) Discover model (Inductive Miner)
+print("\nDiscovering model from log...")
+tree = pm4py.discover_process_tree_inductive(log)
+net2, im2, fm2 = pm4py.convert_to_petri_net(tree)
 
-def log_to_wfnet():
-    print("\n[5] Running Inductive Miner")
+pm4py.write_pnml(net2, im2, fm2, discovered_pnml)
+pm4py.view_petri_net(net2, im2, fm2)
 
-    log = xes_importer.apply(GENERATED_LOG)
+print("\nConstraint Based Workflow Net generated sucessfully .")
 
-    process_tree = pm4py.discover_process_tree_inductive(log)
-    net, im, fm = pm4py.convert_to_petri_net(process_tree)
+print("\nEvaluating discovered WF-net...")
 
-    pm4py.write_pnml(net, im, fm, DISCOVERED_MODEL)
-    print(" Discovered WF-net saved:", DISCOVERED_MODEL)
+fitness = fitness_evaluator.apply(log, net2, im2, fm2)
+precision = precision_evaluator.apply(log, net2, im2, fm2)
+generalization = generalization_evaluator.apply(log, net2, im2, fm2)
+simplicity = simplicity_evaluator.apply(net2)
 
-    print("Displaying discovered PNML...")
-    pm4py.view_petri_net(net, im, fm)
+print("Fitness:", fitness)
+print("Precision:", precision)
+print("Generalization:", generalization)
+print("Simplicity:", simplicity)
+from pm4py.visualization.petri_net import visualizer as pn_visualizer
 
+pdf_path = os.path.join(base_dir, "Final_WF_Net.pdf")
 
-# =========================================================
-# MAIN
-# =========================================================
+# Create visualization with custom size
+gviz = pn_visualizer.apply(
+    net2, im2, fm2,
+    parameters={
+        "format": "pdf",
+        "graph_title": "Discovered Workflow Net",
+        "rankdir": "LR",          # Left → Right layout
+        "bgcolor": "white",
+        "fontsize": "20"          # Bigger font
+    }
+)
 
-def main():
-    print("==========================================")
-    print("  BPMN + DECLARE (Vacuity ON) → WF-NET ")
-    print("==========================================")
+pn_visualizer.save(gviz, pdf_path)
 
-    bpmn_to_pnml()
-    declare_to_log()
-    fix_xes()
-    display_log()
-    log_to_wfnet()
-
-    print("\n PIPELINE COMPLETED SUCCESSFULLY")
-
-
-if __name__ == "__main__":
-    main()
+print("WF-net exported (large version) to:", pdf_path)
