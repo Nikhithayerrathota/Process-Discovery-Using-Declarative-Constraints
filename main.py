@@ -10,8 +10,8 @@ from pm4py.algo.evaluation.generalization import algorithm as generalization_eva
 from pm4py.algo.evaluation.simplicity import algorithm as simplicity_evaluator
 
 # ---- paths ----
-base_dir = r"C:\Users\I543203\Downloads\Masters-Thesis-Experiement-Results-main\Masters-Thesis-Experiement-Results-main\BPMN5"
-download_dir = r"C:\Users\I543203\Downloads\Masters-Thesis-Experiement-Results-main\Masters-Thesis-Experiement-Results-main\BPMN5"
+base_dir = r"C:\Users\Downloads\Masters-Thesis-Experiement-Results-main\Masters-Thesis-Experiement-Results-main\BPMN5"
+download_dir = r"C:\Users\Downloads\Masters-Thesis-Experiement-Results-main\Masters-Thesis-Experiement-Results-main\BPMN5"
 
 bpmn_file = os.path.join(base_dir, "BPMN5.bpmn")
 decl_file = os.path.join(base_dir, "BPMN5.decl")
