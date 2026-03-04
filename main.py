@@ -84,8 +84,8 @@ print("\nConstraint Based Workflow Net generated sucessfully .")
 
 print("\nEvaluating discovered WF-net...")
 
-fitness = fitness_evaluator.apply(log, net2, im2, fm2)
-precision = precision_evaluator.apply(log, net2, im2, fm2)
+fitness_01 = fitness_evaluator.apply(log, net2, im2, fm2)
+precision_02= precision_evaluator.apply(log, net2, im2, fm2)
 generalization = generalization_evaluator.apply(log, net2, im2, fm2)
 simplicity = simplicity_evaluator.apply(net2)
 
