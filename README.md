@@ -65,7 +65,7 @@ python main.py
 The research question aims to develop an automated, incremental process discovery–based method that integrates declarative constraints into existing imperative process models while ensuring compliance with additional behavioral requirements.
 
 ---
-## ⚖️ License & Intellectual Property
+## License & Intellectual Property
 
 © 2026 Nikhitha Yerrathota. All rights reserved.
 
