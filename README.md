@@ -63,3 +63,17 @@ python main.py
 ## Research Contribution
 
 The research question aims to develop an automated, incremental process discovery–based method that integrates declarative constraints into existing imperative process models while ensuring compliance with additional behavioral requirements.
+
+---
+## ⚖️ License & Intellectual Property
+
+© 2026 Nikhitha Yerrathota. All rights reserved.
+
+This project was developed as part of a Master's Thesis at **Frankfurt University of Applied Sciences** in collaboration with **SAP Signavio**. 
+
+**Citation:**
+> Yerrathota, N. (2026). *Incremental Process Discovery using Declarative Constraints*. Master's Thesis, Frankfurt University of Applied Sciences.
+
+
+
+
